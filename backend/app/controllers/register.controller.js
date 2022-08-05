@@ -41,7 +41,6 @@ exports.register = async (req, res) => {
                 .json({ error: "failed to register the user" });
             } else {
               flag = 1;
-              res.status(200).json({ user: `${user.name} is added` });
             }
 
             if (flag) {
@@ -50,8 +49,12 @@ exports.register = async (req, res) => {
                 {
                   email: user.email,
                 },
-                SECRET_KEY
+                SECRET_KEY,
+                {
+                    expiresIn: '5h'
+                }
               );
+              res.status(200).json({message: 'successfully registered', token: token})
             }
           }
         );

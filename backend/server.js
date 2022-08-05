@@ -21,8 +21,10 @@ const port = process.env.PORT || 3333;
 
 //require controllers
 const register = require('./app/routes/register.route');
+const login = require('./app/routes/login.route');
 //end points
 app.use('/api', register);
+app.use('/api', login);
 
 app.listen(port, () => {
   console.log(`server running on http://localhost:${port}`);
