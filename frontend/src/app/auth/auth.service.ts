@@ -15,4 +15,8 @@ export class AuthService {
   register(body: any){
     return this.http.post(`${this.baseUrl}/register`, body, {responseType: 'json'});
   }
+
+  login(body: any){
+    return this.http.post(`${this.baseUrl}/login`, body, {responseType: 'json'});
+  }
 }

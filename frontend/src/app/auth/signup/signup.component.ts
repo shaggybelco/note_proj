@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router, Routes } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private auth: AuthService, private formbuilder: FormBuilder) { }
+  constructor(private auth: AuthService, private formbuilder: FormBuilder, private route: Router) { }
 
   form: FormGroup = new FormGroup({
     name: new FormControl(''),
@@ -51,9 +52,16 @@ export class SignupComponent implements OnInit {
           next: (res: any)=>{
             console.log(res.message);
             this.successfull = res.message;
+            
+            setTimeout(() => {
+              this.route.navigate(['/note'])
+            }, 800);
           }, error: (err: any)=>{
             console.log(err.error.exist);
             this.exist = err.error.exist;
+            setTimeout(() => {
+              this.exist = ''
+            }, 800);
           }
         }
       );
