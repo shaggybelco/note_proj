@@ -61,7 +61,7 @@ export class SignupComponent implements OnInit {
             this.exist = err.error.exist;
             setTimeout(() => {
               this.exist = ''
-            }, 800);
+            }, 2000);
           }
         }
       );

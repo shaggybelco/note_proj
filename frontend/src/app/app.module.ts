@@ -10,6 +10,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoteComponent } from './note/note.component';
 import { NavComponent } from './nav/nav.component';
+import { NoteCardComponent } from './note-card/note-card.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NavComponent } from './nav/nav.component';
     SigninComponent,
     NoteComponent,
     NavComponent,
+    NoteCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -59,7 +59,7 @@ export class SigninComponent implements OnInit {
             this.password = err.error.error;
             setTimeout(() => {
               this.password = '';
-            }, 800);
+            }, 2000);
           }
         }
       );
