@@ -9,6 +9,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoteComponent } from './note/note.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { NoteComponent } from './note/note.component';
     SignupComponent,
     SigninComponent,
     NoteComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
