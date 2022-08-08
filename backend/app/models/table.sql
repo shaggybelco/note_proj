@@ -10,6 +10,7 @@ CREATE TABLE notes(
     user_id int,
     title varchar(255),
     note text,
+    date TIMESTAMPTZ DEFAULT Now(),
     private boolean,
     CONSTRAINT fk_users
       FOREIGN KEY(user_id) 
