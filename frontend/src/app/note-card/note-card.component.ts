@@ -12,4 +12,5 @@ export class NoteCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  note: any = ['1',2,3,4,4,5,44]
 }
