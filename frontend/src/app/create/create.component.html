@@ -1,0 +1,25 @@
+<!-- navbar with the title and save -->
+<div class="navbar bg-base-100">
+    <div class="navbar-start">
+        <a class="btn btn-ghost normal-case text-xl"  routerLink="/note">
+            <i class="fa-solid fa-caret-left fa-2x"></i>
+        </a>
+
+        <div class="form-control">
+            <input type="text" placeholder="Title" class="input input-bordered" />
+          </div>
+    </div>
+    
+    <div class="navbar-end">
+      <a class="btn">Save</a>
+    </div>
+  </div>
+<!-- Template editor -->
+
+<div class="edit">
+<angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
+</div>
+<h1>HTML Output</h1>
+<div class="html">
+  {{ htmlContent }}
+</div>
