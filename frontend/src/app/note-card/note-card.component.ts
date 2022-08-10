@@ -61,7 +61,7 @@ export class NoteCardComponent implements OnInit {
         }, 2000);
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
           this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate(['/notes'], { relativeTo: this.route });
+          this.router.navigate(['/note'], { relativeTo: this.route });
       },
       error: (err: any) => {
         console.log(err);
