@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -16,6 +16,9 @@ import { NoteComponent } from './note/note.component';
 import { NavComponent } from './nav/nav.component';
 import { NoteCardComponent } from './note-card/note-card.component';
 import { CreateComponent } from './create/create.component';
+import { AuthService } from './auth/auth.service';
+import { SecurityGuard } from './guard/security.guard';
+import { JwtInterceptor } from './interceptor/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,7 @@ import { CreateComponent } from './create/create.component';
     FormsModule, 
     AngularEditorModule
   ],
-  providers: [],
+  providers: [AuthService, SecurityGuard,{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

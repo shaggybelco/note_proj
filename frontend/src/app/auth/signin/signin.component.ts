@@ -33,6 +33,7 @@ export class SigninComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
+  
 
   login(){
     let user = {
@@ -50,7 +51,11 @@ export class SigninComponent implements OnInit {
           next: (res: any)=>{
             console.log(res.message);
             this.successfull = res.message;
-            
+            // console.log(res.token);
+
+            this.auth.isLoggIn = true;
+            localStorage.setItem('token', res.token);
+
             setTimeout(() => {
               this.route.navigate(['/note'])
             }, 800);

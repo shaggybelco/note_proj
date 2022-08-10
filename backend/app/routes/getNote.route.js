@@ -8,6 +8,6 @@ app.use(bodyparser.json());
 
 const controller = require('../controllers/getNote.controller');
 
-app.get('/get', controller.getall);
+app.get('/get/:id', controller.getall);
 
 module.exports = app;

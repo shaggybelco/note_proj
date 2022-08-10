@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GetIdService } from '../auth/get-id.service';
 
 @Component({
   selector: 'app-note',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private getid: GetIdService) { }
 
   ngOnInit(): void {
+    this.getid.getID().subscribe(
+      {
+        next: (decoded: any)=>{
+         console.log(decoded)
+        },
+        error: (error: any)=>{
+         console.log(error)
+        }
+      }
+    )
   }
 
 

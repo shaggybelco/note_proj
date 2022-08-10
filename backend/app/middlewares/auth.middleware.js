@@ -9,6 +9,7 @@ module.exports = async (req, res) =>{
         res.status(200).json({decoded: decode});
         console.log(decode);
     } catch (error) {
-        res.status(401).json({error: 'no token provided'})
+        res.status(401).json({error: 'no token provided'});
+        console.log('error token');
     }
 }

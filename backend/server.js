@@ -28,6 +28,7 @@ const create = require('./app/routes/create.route');
 const update = require('./app/routes/update.route');
 const deleting = require('./app/routes/delete.route');
 const get = require('./app/routes/getNote.route');
+const getId = require('./app/routes/getUserId.route')
 //end points
 app.use('/api', register);
 app.use('/api', login);
@@ -35,6 +36,7 @@ app.use('/api', create);
 app.use('/api', update);
 app.use('/api', deleting);
 app.use('/api', get);
+app.use('/api', getId);
 
 app.listen(port, () => {
   console.log(`server running on http://localhost:${port}`);
