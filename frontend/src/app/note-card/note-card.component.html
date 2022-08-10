@@ -1,20 +1,61 @@
+<!-- successfully added -->
+<div class="alert alert-success shadow-lg" *ngIf="deleting.success != ''">
+  <div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="stroke-current flex-shrink-0 h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+    <span>{{ success }}</span>
+  </div>
+</div>
+
+<!-- card -->
+
 <div *ngFor="let item of notes; let i = index" id="cards">
   <div class="flex flex-col">
     <div class="card card-compact w-96 bg-base-200 shadow-xl">
       <div class="flex justify-center">
-        <a class="btn btn-ghost normal-case text-xl" (click)="delete(i)">
-          <i class="fa-regular fa-trash-can" id="trash"></i>
-        </a>
+        <!-- modal -->
+        <!-- The button to open modal -->
+        <label for="my-modal-6" class="btn btn-ghost normal-case text-xl"
+          ><i class="fa-regular fa-trash-can" id="trash"></i
+        ></label>
       </div>
       <div class="flex justify-center" id="pad" (click)="edit(i)" id="cCard">
-        <div [innerHTML]= item.note id="show"></div>
+        <div [innerHTML]="item.note" id="show"></div>
       </div>
     </div>
     <div class="flex justify-center font-bold">
-      <div class="flex" id="title">{{item.title}}</div>
+      <div class="flex" id="title">{{ item.title }}</div>
     </div>
     <div class="flex justify-center">
-      <div class="flex" id="date">{{item.date | date: 'dd MMM yyyy HH:mm'}}</div>
+      <div class="flex" id="date">
+        {{ item.date | date: "dd MMM yyyy HH:mm" }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Put this part before </body> tag -->
+  <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+  <div class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Warning!</h3>
+      <p class="py-4">
+        Are you sure you want to delete!
+      </p>
+      <div class="modal-action">
+        <label for="my-modal-6" class="btn" (click)="delete(i)">Yes</label>
+        <label for="my-modal-6" class="btn">No</label>
+      </div>
     </div>
   </div>
 </div>

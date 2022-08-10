@@ -8,6 +8,6 @@ app.use(bodyparser.json());
 
 const controller = require('../controllers/delete.controller');
 
-app.delete('/delete', controller.delete);
+app.delete('/delete/:id/:user_id', controller.delete);
 
 module.exports = app;
