@@ -1,3 +1,26 @@
 #cards{
     display: flex;
 }
+
+#pad{
+    padding: 20px;
+    
+}
+
+#show{
+    max-height: 300px !important;
+    color: gray;
+}
+
+#date{
+    color: gray;
+    padding-bottom: 10px;
+}
+
+#trash{
+    color: crimson;
+}
+
+#title{
+    padding-top: 10px;
+}

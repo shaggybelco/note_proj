@@ -12,5 +12,6 @@ export class NoteCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  note: any = ['1',2,3,4,4,5,44]
+  note: any = ['1',2,3,4,4,5]
+  res = "<p><b>hey ubiauhf qioaf jawoufe  uasiludfh aufh aliuhfea uuoasf hof </b> iusadfgya <i>sidufh oas.dhf i;osadf</i></p>"
 }
