@@ -6,7 +6,7 @@
         </a>
 
         <div class="form-control">
-            <input type="text" placeholder="Title" [(ngModel)]="title" (keypress)="change()" class="input input-bordered" />
+            <input type="text" placeholder="Title" [(ngModel)]="title" class="input input-bordered" />
           </div>
     </div>
     
@@ -38,5 +38,5 @@
 
 
 <div class="edit">
-  <angular-editor [(ngModel)]="htmlContent" (keypress)="change()" [config]="config"></angular-editor>
+  <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
 </div>
