@@ -72,9 +72,15 @@ export class CreateComponent implements OnInit {
     height: '40rem',
     outline: true,
     minHeight: '20rem',
-    placeholder: 'Enter text in this rich text editor....',
+    placeholder: 'Start writing your note....',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
+    toolbarHiddenButtons:[
+      [
+        'insertImage',
+        'insertVideo'
+      ]
+    ],
     customClasses: [
       {
         name: 'Quote',
