@@ -5,6 +5,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 // +==========================component==============================
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { CreateComponent } from './create/create.component';
 import { AuthService } from './auth/auth.service';
 import { SecurityGuard } from './guard/security.guard';
 import { JwtInterceptor } from './interceptor/jwt.interceptor';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { JwtInterceptor } from './interceptor/jwt.interceptor';
     NavComponent,
     NoteCardComponent,
     CreateComponent,
+    EditComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { JwtInterceptor } from './interceptor/jwt.interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule, 
-    AngularEditorModule
+    AngularEditorModule,
+    Ng2SearchPipeModule
   ],
   providers: [AuthService, SecurityGuard,{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
 import { SecurityGuard } from './guard/security.guard';
 import { HomeComponent } from './home/home.component';
 import { NoteComponent } from './note/note.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
     path: 'signup', component: SignupComponent
   },{path: 'signin', component: SigninComponent},
   {path: 'note', component: NoteComponent, canActivate: [SecurityGuard]},
-  {path: 'create', component: CreateComponent, canActivate: [SecurityGuard]}
+  {path: 'create', component: CreateComponent, canActivate: [SecurityGuard]},
+  {path: 'edit', component: EditComponent, canActivate: [SecurityGuard]}
 ];
 
 @NgModule({

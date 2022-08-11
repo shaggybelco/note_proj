@@ -3,23 +3,21 @@ import { Router, ActivatedRoute } from '@angular/router';
 // importing the stuff needed for text editor
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { GetIdService } from '../auth/get-id.service';
-import { CreateService } from '../services/create.service';
+import { EditService } from '../services/edit.service';
+import { GetOneNoteService } from '../services/get-one-note.service';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss'],
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
 })
-export class CreateComponent implements OnInit {
-  constructor(
-    private getid: GetIdService,
-    private create: CreateService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+export class EditComponent implements OnInit {
   title: string = '';
   userId!: number;
   success: string = '';
+  note: any;
+
+  constructor(private getid: GetIdService, private edit: EditService, private getOneUserNote: GetOneNoteService) {}
 
   ngOnInit(): void {
     this.getid.getID().subscribe({
@@ -31,36 +29,50 @@ export class CreateComponent implements OnInit {
         console.log(error.error);
       },
     });
+
+    this.getOneUserNote.getOneNote(localStorage.getItem('id')).subscribe(
+      {
+        next: (res: any)=>{
+          console.log(res);
+          this.note = res[0];
+          this.htmlContent = this.note.note;
+          this.title = this.note.title;
+        },error: (err)=>{
+          console.log(err)
+        }
+      }
+    )
+  }
+  change(){
+    console.log(this.title);
+    console.log(this.htmlContent)
   }
 
   save() {
-    let note = {
+    const id = localStorage.getItem('id');
+    let editNote = {
+      id: id,
       user_id: this.userId,
       title: this.title,
       note: this.htmlContent,
       private: false,
     };
 
-    this.create.create(note).subscribe({
+    console.log(editNote);
+    this.edit.edit(editNote).subscribe({
       next: (res: any) => {
-        console.log(res);
+        console.log(res.success);
         this.success = res.success;
         setTimeout(() => {
           this.success = '';
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate(['/note'], { relativeTo: this.route });
         }, 2000);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.log(err);
       },
     });
   }
 
-  change() {
-    console.log(this.title);
-  }
   name = 'Angular 6';
   htmlContent = '';
 

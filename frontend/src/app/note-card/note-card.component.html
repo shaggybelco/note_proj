@@ -1,5 +1,5 @@
 <!-- successfully added -->
-<div class="alert alert-success shadow-lg" *ngIf="success !=''">
+<div class="alert alert-success shadow-lg" *ngIf="success != ''">
   <div>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,17 +20,29 @@
 
 <!-- card -->
 
-<div *ngFor="let item of notes; let i = index" id="cards">
+<div
+  *ngFor="let item of notes | filter: this.share.term; let i = index"
+  id="cards"
+>
   <div class="flex flex-col">
     <div class="card card-compact w-96 bg-base-200 shadow-xl">
       <div class="flex justify-center">
         <!-- modal -->
         <!-- The button to open modal -->
-        <label for="my-modal-6" class="btn btn-ghost normal-case text-xl"
+        <label
+          (click)="send(i)"
+          for="my-modal-6"
+          class="btn btn-ghost normal-case text-xl"
           ><i class="fa-regular fa-trash-can" id="trash"></i
         ></label>
       </div>
-      <div class="flex justify-center" id="pad" (click)="edit(i)" id="cCard">
+      <div
+        class="flex justify-center"
+        id="pad"
+        (click)="edit(i)"
+        routerLink="/edit"
+        id="cCard"
+      >
         <div [innerHTML]="item.note" id="show"></div>
       </div>
     </div>
@@ -49,11 +61,9 @@
   <div class="modal modal-bottom sm:modal-middle">
     <div class="modal-box">
       <h3 class="font-bold text-lg">Warning!</h3>
-      <p class="py-4">
-        Are you sure you want to delete!
-      </p>
+      <p class="py-4">Are you sure you want to delete {{ holdTitle }}?!</p>
       <div class="modal-action">
-        <label for="my-modal-6" class="btn" (click)="delete(i)">Yes</label>
+        <label for="my-modal-6" class="btn" (click)="deleteOne()">Yes</label>
         <label for="my-modal-6" class="btn">No</label>
       </div>
     </div>

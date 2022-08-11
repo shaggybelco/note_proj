@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GetIdService } from '../auth/get-id.service';
 import { DeleteService } from '../services/delete.service';
 import { GetUserNotesService } from '../services/get-user-notes.service';
+import { ShareService } from '../services/share.service';
+
 
 @Component({
   selector: 'app-note-card',
@@ -11,15 +13,16 @@ import { GetUserNotesService } from '../services/get-user-notes.service';
 })
 export class NoteCardComponent implements OnInit {
   userId: any;
-  notes: any;
+  public notes: any;
   success: string = '';
 
   constructor(
-    private getUsersNote: GetUserNotesService,
+    public getUsersNote: GetUserNotesService,
     private getid: GetIdService,
     public deleting: DeleteService,
     private router: Router,
     private route: ActivatedRoute,
+    public share: ShareService
   ) {}
 
   ngOnInit(): void {
@@ -46,8 +49,22 @@ export class NoteCardComponent implements OnInit {
   }
   post: object = {};
 
+  postValue!: number;
+  holdTitle!: string;
+  send(num: any) {
+    console.log(num);
+    this.postValue = num;
+    this.holdTitle = this.notes[num].title;
+  }
+
+  deleteOne() {
+    console.log(this.postValue);
+
+    console.log(this.holdTitle);
+    this.delete(this.postValue);
+  }
   delete(num: any) {
-    const id = this.notes[num].id
+    const id = this.notes[num].id;
     const user_id = this.userId;
 
     this.deleting.delete(id, user_id).subscribe({
@@ -60,8 +77,8 @@ export class NoteCardComponent implements OnInit {
           this.deleting.success = '';
         }, 2000);
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate(['/note'], { relativeTo: this.route });
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['/note'], { relativeTo: this.route });
       },
       error: (err: any) => {
         console.log(err);
@@ -69,9 +86,16 @@ export class NoteCardComponent implements OnInit {
     });
   }
 
-  edit(num: any) {
+ edit(num: any){
     console.log(num);
     console.log(this.notes[num]);
+    const id = this.notes[num].id;
+    const user_id = this.userId;
+
+    console.log(`id ${id}, user_id: ${user_id}`);
+    localStorage.setItem('id', id)
+
+
   }
 
   note: any = ['1', 2, 3, 4, 4, 5];

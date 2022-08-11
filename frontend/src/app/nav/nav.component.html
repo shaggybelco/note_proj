@@ -9,7 +9,7 @@
   </div>
   <div class="flex-none gap-2">
     <div class="form-control" *ngIf="show != false">
-      <input type="text" placeholder="Search" class="input input-bordered" />
+      <input type="text" placeholder="Search" [(ngModel)]="this.share.term" class="input input-bordered" />
     </div>
 
     <div class="flex-none gap-2">

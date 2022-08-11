@@ -5,13 +5,13 @@ exports.update = (req, res) => {
 
   try {
     db.query(
-      "UPDATE notes SET title = $1, note =$2, private =$3 WHERE user_id = $4 and id = $5",
-      [title, note, private, user_id, id],
+      "UPDATE notes SET title = $1, note =$2, private =$3 WHERE user_id = $4 and id = $5 RETURNING *",
+      [title, note, private, user_id,parseInt(id)],
       (err) => {
         if (err) {
           res.status(400).json({ error: "couldnt update" });
         }
-        res.status(201).json({ success: `successfull update ${id}` });
+        res.status(201).json({ success: `successfull update ${title}` });
       }
     );
   } catch (error) {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NoteCardComponent } from '../note-card/note-card.component';
+import { ShareService } from '../services/share.service';
 
 @Component({
   selector: 'app-nav',
@@ -9,7 +11,7 @@ export class NavComponent implements OnInit {
 
   show: boolean = false;
 
-  constructor() { }
+  constructor(public share: ShareService) { }
 
   ngOnInit(): void {
   }

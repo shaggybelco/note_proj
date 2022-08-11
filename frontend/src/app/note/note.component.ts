@@ -1,28 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { GetIdService } from '../auth/get-id.service';
+import { NoteCardComponent } from '../note-card/note-card.component';
+import { DeleteService } from '../services/delete.service';
 
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
-  styleUrls: ['./note.component.scss']
+  styleUrls: ['./note.component.scss'],
 })
 export class NoteComponent implements OnInit {
-
-  constructor(private getid: GetIdService) { }
+  constructor(private getid: GetIdService, public deleting: DeleteService, ) {}
 
   ngOnInit(): void {
-    this.getid.getID().subscribe(
-      {
-        next: (decoded: any)=>{
-         console.log(decoded)
-        },
-        error: (error: any)=>{
-         console.log(error)
-        }
-      }
-    )
+    this.getid.getID().subscribe({
+      next: (decoded: any) => {
+        console.log(decoded);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
   }
-
-
 
 }
