@@ -43,21 +43,18 @@ export class SignupComponent implements OnInit {
     }
   
 
-    console.log(user)
     if(this.form.invalid){
       return;
     }else {
       this.auth.register(user).subscribe(
         {
           next: (res: any)=>{
-            console.log(res.message);
             this.successfull = res.message;
             
             setTimeout(() => {
               this.route.navigate(['/note'])
             }, 800);
           }, error: (err: any)=>{
-            console.log(err.error.exist);
             this.exist = err.error.exist;
             setTimeout(() => {
               this.exist = ''

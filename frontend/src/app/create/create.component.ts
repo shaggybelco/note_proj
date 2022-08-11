@@ -24,7 +24,6 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
     this.getid.getID().subscribe({
       next: (decoded: any) => {
-        console.log(decoded.decoded.id);
         this.userId = decoded.decoded.id;
       },
       error: (error: any) => {
@@ -43,7 +42,6 @@ export class CreateComponent implements OnInit {
 
     this.create.create(note).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.success = res.success;
         setTimeout(() => {
           this.success = '';
@@ -58,9 +56,6 @@ export class CreateComponent implements OnInit {
     });
   }
 
-  change() {
-    console.log(this.title);
-  }
   name = 'Angular 6';
   htmlContent = '';
 

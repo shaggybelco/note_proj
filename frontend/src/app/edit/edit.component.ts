@@ -22,7 +22,6 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     this.getid.getID().subscribe({
       next: (decoded: any) => {
-        console.log(decoded.decoded.id);
         this.userId = decoded.decoded.id;
       },
       error: (error: any) => {
@@ -33,7 +32,6 @@ export class EditComponent implements OnInit {
     this.getOneUserNote.getOneNote(localStorage.getItem('id')).subscribe(
       {
         next: (res: any)=>{
-          console.log(res);
           this.note = res[0];
           this.htmlContent = this.note.note;
           this.title = this.note.title;
@@ -43,10 +41,7 @@ export class EditComponent implements OnInit {
       }
     )
   }
-  change(){
-    console.log(this.title);
-    console.log(this.htmlContent)
-  }
+
 
   save() {
     const id = localStorage.getItem('id');
@@ -58,10 +53,8 @@ export class EditComponent implements OnInit {
       private: false,
     };
 
-    console.log(editNote);
     this.edit.edit(editNote).subscribe({
       next: (res: any) => {
-        console.log(res.success);
         this.success = res.success;
         setTimeout(() => {
           this.success = '';
