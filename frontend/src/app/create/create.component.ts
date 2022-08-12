@@ -20,11 +20,11 @@ export class CreateComponent implements OnInit {
   title: string = '';
   userId!: number;
   success: string = '';
+  error: string = '';
 
   ngOnInit(): void {
     this.getid.getID().subscribe({
       next: (decoded: any) => {
-        console.log(decoded.decoded.id);
         this.userId = decoded.decoded.id;
       },
       error: (error: any) => {
@@ -43,7 +43,6 @@ export class CreateComponent implements OnInit {
 
     this.create.create(note).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.success = res.success;
         setTimeout(() => {
           this.success = '';
@@ -53,14 +52,14 @@ export class CreateComponent implements OnInit {
         }, 2000);
       },
       error: (err) => {
-        console.log(err);
+        this.error = err.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
       },
     });
   }
 
-  change() {
-    console.log(this.title);
-  }
   name = 'Angular 6';
   htmlContent = '';
 
@@ -75,12 +74,7 @@ export class CreateComponent implements OnInit {
     placeholder: 'Start writing your note....',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
-    toolbarHiddenButtons:[
-      [
-        'insertImage',
-        'insertVideo'
-      ]
-    ],
+    toolbarHiddenButtons: [['insertImage', 'insertVideo']],
     customClasses: [
       {
         name: 'Quote',

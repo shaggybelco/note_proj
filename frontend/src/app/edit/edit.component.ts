@@ -15,37 +15,41 @@ export class EditComponent implements OnInit {
   title: string = '';
   userId!: number;
   success: string = '';
+  error: string = '';
   note: any;
 
-  constructor(private getid: GetIdService, private edit: EditService, private getOneUserNote: GetOneNoteService) {}
+  constructor(
+    private getid: GetIdService,
+    private edit: EditService,
+    private getOneUserNote: GetOneNoteService
+  ) {}
 
   ngOnInit(): void {
     this.getid.getID().subscribe({
       next: (decoded: any) => {
-        console.log(decoded.decoded.id);
         this.userId = decoded.decoded.id;
       },
       error: (error: any) => {
-        console.log(error.error);
+        this.error = error.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
       },
     });
 
-    this.getOneUserNote.getOneNote(localStorage.getItem('id')).subscribe(
-      {
-        next: (res: any)=>{
-          console.log(res);
-          this.note = res[0];
-          this.htmlContent = this.note.note;
-          this.title = this.note.title;
-        },error: (err)=>{
-          console.log(err)
-        }
-      }
-    )
-  }
-  change(){
-    console.log(this.title);
-    console.log(this.htmlContent)
+    this.getOneUserNote.getOneNote(localStorage.getItem('id')).subscribe({
+      next: (res: any) => {
+        this.note = res[0];
+        this.htmlContent = this.note.note;
+        this.title = this.note.title;
+      },
+      error: (err) => {
+        this.error = err.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
+      },
+    });
   }
 
   save() {
@@ -58,17 +62,18 @@ export class EditComponent implements OnInit {
       private: false,
     };
 
-    console.log(editNote);
     this.edit.edit(editNote).subscribe({
       next: (res: any) => {
-        console.log(res.success);
         this.success = res.success;
         setTimeout(() => {
           this.success = '';
         }, 2000);
       },
       error: (err: any) => {
-        console.log(err);
+        this.error = err.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
       },
     });
   }
@@ -87,12 +92,7 @@ export class EditComponent implements OnInit {
     placeholder: 'Start writing your note....',
     defaultParagraphSeparator: 'p',
     defaultFontName: 'Arial',
-    toolbarHiddenButtons:[
-      [
-        'insertImage',
-        'insertVideo'
-      ]
-    ],
+    toolbarHiddenButtons: [['insertImage', 'insertVideo']],
     customClasses: [
       {
         name: 'Quote',

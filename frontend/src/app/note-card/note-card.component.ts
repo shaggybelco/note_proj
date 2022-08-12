@@ -5,7 +5,6 @@ import { DeleteService } from '../services/delete.service';
 import { GetUserNotesService } from '../services/get-user-notes.service';
 import { ShareService } from '../services/share.service';
 
-
 @Component({
   selector: 'app-note-card',
   templateUrl: './note-card.component.html',
@@ -15,6 +14,7 @@ export class NoteCardComponent implements OnInit {
   userId: any;
   public notes: any;
   success: string = '';
+  error: string = '';
 
   constructor(
     public getUsersNote: GetUserNotesService,
@@ -28,22 +28,26 @@ export class NoteCardComponent implements OnInit {
   ngOnInit(): void {
     this.getid.getID().subscribe({
       next: (decoded: any) => {
-        console.log(decoded.decoded.id);
         this.userId = decoded.decoded.id;
 
         // get the users notes
         this.getUsersNote.getUserNotes(this.userId).subscribe({
           next: (res: any) => {
             this.notes = res;
-            console.log(this.notes);
           },
           error: (err) => {
-            console.log(err);
+            this.error = err.error;
+            setTimeout(() => {
+              this.error = '';
+            }, 2000);
           },
         });
       },
       error: (error: any) => {
-        console.log(error.error);
+        this.error = error.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
       },
     });
   }
@@ -52,15 +56,11 @@ export class NoteCardComponent implements OnInit {
   postValue!: number;
   holdTitle!: string;
   send(num: any) {
-    console.log(num);
     this.postValue = num;
     this.holdTitle = this.notes[num].title;
   }
 
   deleteOne() {
-    console.log(this.postValue);
-
-    console.log(this.holdTitle);
     this.delete(this.postValue);
   }
   delete(num: any) {
@@ -69,7 +69,6 @@ export class NoteCardComponent implements OnInit {
 
     this.deleting.delete(id, user_id).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.deleting.success = res.success;
         this.success = res.success;
         setTimeout(() => {
@@ -81,24 +80,19 @@ export class NoteCardComponent implements OnInit {
         this.router.navigate(['/note'], { relativeTo: this.route });
       },
       error: (err: any) => {
-        console.log(err);
+        this.error = err.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
       },
     });
   }
 
- edit(num: any){
-    console.log(num);
-    console.log(this.notes[num]);
+  edit(num: any) {
     const id = this.notes[num].id;
     const user_id = this.userId;
 
     console.log(`id ${id}, user_id: ${user_id}`);
-    localStorage.setItem('id', id)
-
-
+    localStorage.setItem('id', id);
   }
-
-  note: any = ['1', 2, 3, 4, 4, 5];
-  res =
-    '<p><b>hey ubiauhf qioaf jawoufe  uasiludfh aufh aliuhfea uuoasf hof </b> iusadfgya <i>sidufh oas.dhf i;osadf</i></p>';
 }

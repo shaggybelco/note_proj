@@ -41,7 +41,6 @@ export class SigninComponent implements OnInit {
       password: this.form.value.password
     }
 
-    console.log(user);
 
     if(this.form.invalid){
       return;
@@ -49,7 +48,6 @@ export class SigninComponent implements OnInit {
       this.auth.login(user).subscribe(
         {
           next: (res: any)=>{
-            console.log(res.message);
             this.successfull = res.message;
             // console.log(res.token);
 
@@ -60,7 +58,6 @@ export class SigninComponent implements OnInit {
               this.route.navigate(['/note'])
             }, 800);
           }, error: (err: any)=>{
-            console.log(err.error.error);
             this.password = err.error.error;
             setTimeout(() => {
               this.password = '';

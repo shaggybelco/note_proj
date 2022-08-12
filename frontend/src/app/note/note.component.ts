@@ -10,7 +10,14 @@ import { GetUserNotesService } from '../services/get-user-notes.service';
   styleUrls: ['./note.component.scss'],
 })
 export class NoteComponent implements OnInit {
-  constructor(private getid: GetIdService, public deleting: DeleteService, public notes: GetUserNotesService) {}
+  error: string = '';
+
+  constructor(
+    private getid: GetIdService,
+    public deleting: DeleteService,
+    public notes: GetUserNotesService
+  ) {}
+  
   userid!: number;
   note: any;
   name!: string;
@@ -22,22 +29,24 @@ export class NoteComponent implements OnInit {
         this.name = decoded.decoded.name;
         this.userid = decoded.decoded.id;
 
-        this.notes.getUserNotes(this.userid).subscribe(
-          {
-            next: (res: any)=>{
-              this.note = res;
-            },error(err){
-              console.log(err)
-            }
-          }
-        )
+        this.notes.getUserNotes(this.userid).subscribe({
+          next: (res: any) => {
+            this.note = res;
+          },
+          error: (err) => {
+            this.error = err.error;
+            setTimeout(() => {
+              this.error = '';
+            }, 2000);
+          },
+        });
       },
       error: (error: any) => {
-        console.log(error);
+        this.error = error.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
       },
     });
-
-    
   }
-
 }
