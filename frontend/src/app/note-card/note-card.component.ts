@@ -4,6 +4,10 @@ import { GetIdService } from '../auth/get-id.service';
 import { DeleteService } from '../services/delete.service';
 import { GetUserNotesService } from '../services/get-user-notes.service';
 import { ShareService } from '../services/share.service';
+import { Spinkit } from 'ng-http-loader';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { EditService } from '../services/edit.service';
+import { GetOneNoteService } from '../services/get-one-note.service';
 
 @Component({
   selector: 'app-note-card',
@@ -15,6 +19,10 @@ export class NoteCardComponent implements OnInit {
   public notes: any;
   success: string = '';
   error: string = '';
+  p: number = 1;
+  total: number = 0;
+  title: any;
+  note: any;
 
   constructor(
     public getUsersNote: GetUserNotesService,
@@ -22,14 +30,17 @@ export class NoteCardComponent implements OnInit {
     public deleting: DeleteService,
     private router: Router,
     private route: ActivatedRoute,
-    public share: ShareService
+    public share: ShareService,
+    private edit: EditService,
+    private getOneUserNote: GetOneNoteService
   ) {}
+
+  public spinkit = Spinkit.skCubeGrid;
 
   ngOnInit(): void {
     this.getid.getID().subscribe({
       next: (decoded: any) => {
         this.userId = decoded.decoded.id;
-
         // get the users notes
         this.getUsersNote.getUserNotes(this.userId).subscribe({
           next: (res: any) => {
@@ -50,7 +61,39 @@ export class NoteCardComponent implements OnInit {
         }, 2000);
       },
     });
+
+    
   }
+
+  
+
+  save() {
+    const id = localStorage.getItem('id');
+    let editNote = {
+      id: id,
+      user_id: this.userId,
+      title: this.title,
+      note: this.htmlContent,
+      private: false,
+    };
+
+    this.edit.edit(editNote).subscribe({
+      next: (res: any) => {
+        this.success = res.success;
+        setTimeout(() => {
+          this.success = '';
+        }, 2000);
+      },
+      error: (err: any) => {
+        this.error = err.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
+      },
+    });
+  }
+
+
   post: object = {};
 
   postValue!: number;
@@ -88,11 +131,82 @@ export class NoteCardComponent implements OnInit {
     });
   }
 
-  edit(num: any) {
-    const id = this.notes[num].id;
-    const user_id = this.userId;
-
-    console.log(`id ${id}, user_id: ${user_id}`);
-    localStorage.setItem('id', id);
+  id!: number;
+  edits(num: any) {
+    this.id = this.notes[num].id;
+    this.getEditValues(this.id);
   }
+
+  getEditValues(cardId:  any){
+    this.getOneUserNote.getOneNote(cardId).subscribe({
+      next: (res: any) => {
+        this.note = res[0];
+        this.htmlContent = this.note.note;
+        this.title = this.note.title;
+      },
+      error: (err) => {
+        this.error = err.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
+      },
+    });
+  }
+
+  saveEdits() {
+    
+    let editNote = {
+      id: this.id,
+      user_id: this.userId,
+      title: this.title,
+      note: this.htmlContent,
+      private: false,
+    };
+
+    this.edit.edit(editNote).subscribe({
+      next: (res: any) => {
+        this.success = res.success;
+        setTimeout(() => {
+          this.success = '';
+          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+          this.router.onSameUrlNavigation = 'reload';
+          this.router.navigate(['/note'], { relativeTo: this.route });
+        }, 2000);
+      },
+      error: (err: any) => {
+        this.error = err.error;
+        setTimeout(() => {
+          this.error = '';
+        }, 2000);
+      },
+    });
+  }
+
+  name = 'Angular 6';
+  htmlContent = '';
+
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    translate: 'yes',
+    width: '100%',
+    height: '30rem',
+    outline: true,
+    minHeight: '20rem',
+    placeholder: 'Start writing your note....',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [['insertImage', 'insertVideo']],
+    customClasses: [
+      {
+        name: 'Quote',
+        class: 'quoteClass',
+      },
+      {
+        name: 'Title Heading',
+        class: 'titleHead',
+        tag: 'h1',
+      },
+    ],
+  };
 }

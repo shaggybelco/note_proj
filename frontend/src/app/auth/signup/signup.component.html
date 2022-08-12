@@ -115,9 +115,20 @@
         </div>
 
         <h1 class="text-1xl font-thin flex justify-center">
-          Already have an account, <a routerLink="/signin">Login now!</a>
+          Already have an account<a class="cod" routerLink="/signin">, login now!</a>
         </h1>
       </div>
     </div>
   </div>
 </div>
+
+
+<ng-http-loader
+    [backdrop]="true"
+    [backgroundColor]="'#ffaa00'"
+    [debounceDelay]="100"
+    [extraDuration]="300"
+    [minDuration]="300"
+    [backdropBackgroundColor]="'#ffffff'"
+    [spinner]="spinkit">
+</ng-http-loader>

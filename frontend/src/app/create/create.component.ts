@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { GetIdService } from '../auth/get-id.service';
 import { CreateService } from '../services/create.service';
+import { Spinkit } from 'ng-http-loader';
 
 @Component({
   selector: 'app-create',
@@ -11,6 +12,9 @@ import { CreateService } from '../services/create.service';
   styleUrls: ['./create.component.scss'],
 })
 export class CreateComponent implements OnInit {
+
+  public spinkit = Spinkit.skCubeGrid;
+
   constructor(
     private getid: GetIdService,
     private create: CreateService,

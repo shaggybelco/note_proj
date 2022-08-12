@@ -6,6 +6,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgHttpLoaderModule } from 'ng-http-loader';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // +==========================component==============================
 import { AppComponent } from './app.component';
@@ -41,7 +43,10 @@ import { EditComponent } from './edit/edit.component';
     ReactiveFormsModule,
     FormsModule, 
     AngularEditorModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgHttpLoaderModule.forRoot(),
+    NgxPaginationModule,
+    
   ],
   providers: [AuthService, SecurityGuard,{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

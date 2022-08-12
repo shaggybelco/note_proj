@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { Spinkit } from 'ng-http-loader';
 
 @Component({
   selector: 'app-signin',
@@ -9,6 +10,8 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+
+  public spinkit = Spinkit.skCubeGrid;
 
   constructor(private auth: AuthService, private formbuilder: FormBuilder, private route: Router) { }
 

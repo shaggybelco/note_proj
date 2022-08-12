@@ -25,10 +25,11 @@
   id="cards"
 >
   <div class="flex flex-col">
-    <div class="card card-compact w-96 bg-base-200 shadow-xl">
+    <div class="card card-compact w-96 bg-base-200 shadow-xl" id="shad">
       <div class="flex justify-center">
         <!-- modal -->
         <!-- The button to open modal -->
+
         <label
           (click)="send(i)"
           for="my-modal-6"
@@ -36,15 +37,9 @@
           ><i class="fa-regular fa-trash-can" id="trash"></i
         ></label>
       </div>
-      <div
-        class="flex justify-center"
-        id="pad"
-        (click)="edit(i)"
-        routerLink="/edit"
-        id="cCard"
-      >
+      <label for="my-modal-5" class="flex justify-center" (click)="edits(i)" id="cCard">
         <div [innerHTML]="item.note" id="show"></div>
-      </div>
+      </label>
     </div>
     <div class="flex justify-center font-bold">
       <div class="flex" id="title">{{ item.title }}</div>
@@ -56,6 +51,87 @@
     </div>
   </div>
 
+  <!-- edit modal -->
+  <input type="checkbox" id="my-modal-5" class="modal-toggle" />
+  <div class="modal">
+    <div class="modal-box w-11/12 max-w-5xl">
+      <h3 class="font-bold text-lg">Update</h3>
+      <p class="py-4"><!-- navbar with the title and save --></p>
+      <div class="navbar bg-base-100">
+        <div class="navbar-start">
+          <!-- <a class="modal-action">
+            <i class="fa-solid fa-caret-left fa-2x"></i>
+          </a> -->
+          <!-- <div class="modal-action">
+            <label for="my-modal-5" class="btn">Yay!</label>
+          </div> -->
+
+          <div class="form-control">
+            <input
+              type="text"
+              placeholder="Title"
+              [(ngModel)]="title"
+              class="input input-bordered"
+            />
+          </div>
+        </div>
+
+        <div class="navbar-end">
+          <a class="btn" (click)="saveEdits()">Save</a>
+        </div>
+      </div>
+
+      <!-- successfully added -->
+      <div class="alert alert-success shadow-lg" *ngIf="success != ''">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-current flex-shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>{{ success }}</span>
+        </div>
+      </div>
+
+      <div class="alert alert-error shadow-sm" *ngIf="error != ''">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="stroke-current flex-shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>{{ error }}</span>
+        </div>
+      </div>
+      <!-- Template editor -->
+
+      <div class="edit">
+        <angular-editor
+          [(ngModel)]="htmlContent"
+          [config]="config"
+        ></angular-editor>
+      </div>
+      <div class="modal-action">
+        <label for="my-modal-5" class="btn">Exit</label>
+      </div>
+    </div>
+  </div>
   <!-- Put this part before </body> tag -->
   <input type="checkbox" id="my-modal-6" class="modal-toggle" />
   <div class="modal modal-bottom sm:modal-middle">
@@ -69,3 +145,14 @@
     </div>
   </div>
 </div>
+
+<ng-http-loader
+  [backdrop]="true"
+  [backgroundColor]="'#ffaa00'"
+  [debounceDelay]="100"
+  [extraDuration]="300"
+  [minDuration]="300"
+  [backdropBackgroundColor]="'#ffffff'"
+  [spinner]="spinkit"
+>
+</ng-http-loader>

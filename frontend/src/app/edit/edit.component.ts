@@ -5,6 +5,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { GetIdService } from '../auth/get-id.service';
 import { EditService } from '../services/edit.service';
 import { GetOneNoteService } from '../services/get-one-note.service';
+import { Spinkit } from 'ng-http-loader';
 
 @Component({
   selector: 'app-edit',
@@ -17,6 +18,8 @@ export class EditComponent implements OnInit {
   success: string = '';
   error: string = '';
   note: any;
+
+  public spinkit = Spinkit.skCubeGrid;
 
   constructor(
     private getid: GetIdService,

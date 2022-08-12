@@ -47,3 +47,14 @@
 <div class="edit">
   <angular-editor [(ngModel)]="htmlContent" [config]="config"></angular-editor>
 </div>
+
+
+<ng-http-loader
+    [backdrop]="true"
+    [backgroundColor]="'#ffaa00'"
+    [debounceDelay]="100"
+    [extraDuration]="300"
+    [minDuration]="300"
+    [backdropBackgroundColor]="'#ffffff'"
+    [spinner]="spinkit">
+</ng-http-loader>

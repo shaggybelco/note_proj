@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GetIdService } from '../auth/get-id.service';
-import { NoteCardComponent } from '../note-card/note-card.component';
 import { DeleteService } from '../services/delete.service';
 import { GetUserNotesService } from '../services/get-user-notes.service';
+import { Spinkit } from 'ng-http-loader';
+import { ShareService } from '../services/share.service';
 
 @Component({
   selector: 'app-note',
@@ -15,17 +16,22 @@ export class NoteComponent implements OnInit {
   constructor(
     private getid: GetIdService,
     public deleting: DeleteService,
-    public notes: GetUserNotesService
+    public notes: GetUserNotesService,
+    public getPage: ShareService
   ) {}
+
+  public spinkit = Spinkit.skCubeGrid;
   
+
   userid!: number;
   note: any;
   name!: string;
+  p: number = 1;
+  total: number = 0;
 
   ngOnInit(): void {
     this.getid.getID().subscribe({
       next: (decoded: any) => {
-        console.log(decoded.decoded);
         this.name = decoded.decoded.name;
         this.userid = decoded.decoded.id;
 
