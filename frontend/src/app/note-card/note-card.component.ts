@@ -19,8 +19,6 @@ export class NoteCardComponent implements OnInit {
   public notes: any;
   success: string = '';
   error: string = '';
-  p: number = 1;
-  total: number = 0;
   title: any;
   note: any;
 
@@ -117,10 +115,12 @@ export class NoteCardComponent implements OnInit {
         setTimeout(() => {
           this.success = '';
           this.deleting.success = '';
+
+          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+          this.router.onSameUrlNavigation = 'reload';
+          this.router.navigate(['/note'], { relativeTo: this.route });
         }, 2000);
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate(['/note'], { relativeTo: this.route });
+        
       },
       error: (err: any) => {
         this.error = err.error;
@@ -153,6 +153,8 @@ export class NoteCardComponent implements OnInit {
     });
   }
 
+  edited: boolean = false;
+
   saveEdits() {
     
     let editNote = {
@@ -166,11 +168,9 @@ export class NoteCardComponent implements OnInit {
     this.edit.edit(editNote).subscribe({
       next: (res: any) => {
         this.success = res.success;
+        this.edited = true;
         setTimeout(() => {
           this.success = '';
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate(['/note'], { relativeTo: this.route });
         }, 2000);
       },
       error: (err: any) => {
@@ -182,6 +182,14 @@ export class NoteCardComponent implements OnInit {
     });
   }
 
+  exit(){
+    if(this.edited){
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/note'], { relativeTo: this.route });
+    }
+  }
+
   name = 'Angular 6';
   htmlContent = '';
 
@@ -190,7 +198,7 @@ export class NoteCardComponent implements OnInit {
     spellcheck: true,
     translate: 'yes',
     width: '100%',
-    height: '30rem',
+    height: '20rem',
     outline: true,
     minHeight: '20rem',
     placeholder: 'Start writing your note....',

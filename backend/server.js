@@ -29,7 +29,8 @@ const update = require('./app/routes/update.route');
 const deleting = require('./app/routes/delete.route');
 const get = require('./app/routes/getNote.route');
 const getId = require('./app/routes/getUserId.route');
-const getOneNote = require('./app/routes/getOneNote.route')
+const getOneNote = require('./app/routes/getOneNote.route');
+const updatePassword = require('./app/routes/updatePass.route');
 //end points
 app.use('/api', register);
 app.use('/api', login);
@@ -39,6 +40,7 @@ app.use('/api', deleting);
 app.use('/api', get);
 app.use('/api', getId);
 app.use('/api',getOneNote);
+app.use('/api', updatePassword);
 
 app.listen(port, () => {
   console.log(`server running on http://localhost:${port}`);

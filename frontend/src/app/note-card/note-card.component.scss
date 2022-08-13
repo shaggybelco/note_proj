@@ -7,6 +7,10 @@
     height: 200px !important;
 }
 
+#bin{
+    margin-top: 10px;
+}
+
 #cCard{
     cursor: pointer;
     padding: 20px;
@@ -18,7 +22,7 @@
 }
 
 #show{
-    max-height: 120px !important;
+    max-height: 100px !important;
     color: gray;
     overflow-y: auto;
 }

@@ -14,4 +14,8 @@ export class EditService {
   edit(data: any){
     return this.http.put(`${this.baseUrl}/update`, data, {responseType: 'json'});
   }
+
+  updatePassword(id: any, body: any){
+    return this.http.put(`${this.baseUrl}/updatePass/${id}`,body, {responseType: 'json'})
+  }
 }
