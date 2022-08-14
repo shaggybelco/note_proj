@@ -61,7 +61,7 @@ export class NavComponent implements OnInit {
 
   update(){
     if(this.password.length >= 6 && this.cPassword.length >= 6){
-      console.log(this.password)
+     
       let passwords = {
         cPassword: this.cPassword,
         password: this.password
