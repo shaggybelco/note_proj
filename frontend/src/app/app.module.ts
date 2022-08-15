@@ -23,6 +23,7 @@ import { AuthService } from './auth/auth.service';
 import { SecurityGuard } from './guard/security.guard';
 import { JwtInterceptor } from './interceptor/jwt.interceptor';
 import { EditComponent } from './edit/edit.component';
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { EditComponent } from './edit/edit.component';
     NoteCardComponent,
     CreateComponent,
     EditComponent,
+    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,6 @@ import { EditComponent } from './edit/edit.component';
     Ng2SearchPipeModule,
     NgHttpLoaderModule.forRoot(),
     NgxPaginationModule,
-    
   ],
   providers: [AuthService, SecurityGuard,{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent]

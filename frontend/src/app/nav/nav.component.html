@@ -13,6 +13,8 @@
         type="text"
         placeholder="Search"
         [(ngModel)]="this.share.term"
+        (input)="this.share.search(this.share.term)"
+        (keypress)="this.share.addOn()"
         class="input input-bordered"
       />
     </div>

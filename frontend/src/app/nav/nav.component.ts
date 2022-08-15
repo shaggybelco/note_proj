@@ -9,19 +9,21 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+  styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
-
   show: boolean = false;
   userId: any;
   error: string = '';
 
-
-  constructor(public share: ShareService, public logout: LogoutService,
+  constructor(
+    public share: ShareService,
+    public logout: LogoutService,
     private getid: GetIdService,
-    private edit: EditService,private router: Router,
-    private route: ActivatedRoute,) { }
+    private edit: EditService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.getid.getID().subscribe({
@@ -35,48 +37,44 @@ export class NavComponent implements OnInit {
         }, 2000);
       },
     });
-
   }
-  cPassword: string ='';
-  password: string ='';
+  cPassword: string = '';
+  password: string = '';
   strong: string = '';
   showErr: boolean = false;
 
-  change(){
-    if(this.show === false){
+  change() {
+    if (this.show === false) {
       this.show = true;
-    }else{
+    } else {
       this.show = false;
     }
   }
 
-  changePassword(){
+  changePassword() {
     this.showErr = true;
     this.strong = 'Password is Okay';
-    setTimeout(()=>{
-      this.strong ='';
-    },2000)
-    
+    setTimeout(() => {
+      this.strong = '';
+    }, 2000);
   }
 
-  update(){
-    if(this.password.length >= 6 && this.cPassword.length >= 6){
-     
+  update() {
+    if (this.password.length >= 6 && this.cPassword.length >= 6) {
       let passwords = {
         cPassword: this.cPassword,
-        password: this.password
-      }
-  
+        password: this.password,
+      };
+
       this.edit.updatePassword(this.userId, passwords).subscribe({
         next: (res: any) => {
           this.strong = res.message;
           setTimeout(() => {
             this.strong = '';
             this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate(['/note'], { relativeTo: this.route });
+            this.router.onSameUrlNavigation = 'reload';
+            this.router.navigate(['/note'], { relativeTo: this.route });
           }, 2000);
-          
         },
         error: (err: any) => {
           this.error = err.error.error;
@@ -85,12 +83,11 @@ export class NavComponent implements OnInit {
           }, 2000);
         },
       });
-    }else{
+    } else {
       this.error = 'Current password can not be less than 6';
-            setTimeout(() => {
-              this.error = '';
-            }, 4000);
+      setTimeout(() => {
+        this.error = '';
+      }, 4000);
     }
   }
-
 }

@@ -43,6 +43,8 @@ export class NoteCardComponent implements OnInit {
         this.getUsersNote.getUserNotes(this.userId).subscribe({
           next: (res: any) => {
             this.notes = res;
+            this.share.notes = this.notes;
+            this.share.holdNotes = this.notes;
           },
           error: (err) => {
             this.error = err.error;
@@ -59,11 +61,7 @@ export class NoteCardComponent implements OnInit {
         }, 2000);
       },
     });
-
-    
   }
-
-  
 
   save() {
     const id = localStorage.getItem('id');
@@ -90,7 +88,6 @@ export class NoteCardComponent implements OnInit {
       },
     });
   }
-
 
   post: object = {};
 
@@ -120,7 +117,6 @@ export class NoteCardComponent implements OnInit {
           this.router.onSameUrlNavigation = 'reload';
           this.router.navigate(['/note'], { relativeTo: this.route });
         }, 2000);
-        
       },
       error: (err: any) => {
         this.error = err.error;
@@ -133,11 +129,11 @@ export class NoteCardComponent implements OnInit {
 
   id!: number;
   edits(num: any) {
-    this.id = this.notes[num].id;
+    this.id = this.share.notes[num].id;
     this.getEditValues(this.id);
   }
 
-  getEditValues(cardId:  any){
+  getEditValues(cardId: any) {
     this.getOneUserNote.getOneNote(cardId).subscribe({
       next: (res: any) => {
         this.note = res[0];
@@ -156,7 +152,6 @@ export class NoteCardComponent implements OnInit {
   edited: boolean = false;
 
   saveEdits() {
-    
     let editNote = {
       id: this.id,
       user_id: this.userId,
@@ -182,11 +177,11 @@ export class NoteCardComponent implements OnInit {
     });
   }
 
-  exit(){
-    if(this.edited){
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/note'], { relativeTo: this.route });
+  exit() {
+    if (this.edited) {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['/note'], { relativeTo: this.route });
     }
   }
 
