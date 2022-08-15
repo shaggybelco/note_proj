@@ -9,17 +9,18 @@ export class ShareService {
   term = '';
   holdNotes = new Array();
   notes = new Array();
+  have = false;
 
   search(value: string): void {
     this.notes = this.notes.filter((val: any) =>
       val.note.toLowerCase().includes(value)
     );
     console.log(this.notes);
-  }
 
-  addOn() {
-    if(this.term = ''){
+    if(this.term == ''){
       this.notes = this.holdNotes;
     }
   }
+  
+  
 }

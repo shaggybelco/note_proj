@@ -14,7 +14,7 @@
         placeholder="Search"
         [(ngModel)]="this.share.term"
         (input)="this.share.search(this.share.term)"
-        (keypress)="this.share.addOn()"
+        (keypress)="this.share.search(this.share.term)"
         class="input input-bordered"
       />
     </div>
