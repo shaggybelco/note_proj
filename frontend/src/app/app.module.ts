@@ -22,7 +22,6 @@ import { CreateComponent } from './create/create.component';
 import { AuthService } from './auth/auth.service';
 import { SecurityGuard } from './guard/security.guard';
 import { JwtInterceptor } from './interceptor/jwt.interceptor';
-import { EditComponent } from './edit/edit.component';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 
 @NgModule({
@@ -35,7 +34,6 @@ import { SearchFilterPipe } from './pipes/search-filter.pipe';
     NavComponent,
     NoteCardComponent,
     CreateComponent,
-    EditComponent,
     SearchFilterPipe,
   ],
   imports: [

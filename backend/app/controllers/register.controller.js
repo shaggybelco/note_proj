@@ -31,9 +31,9 @@ exports.register = async (req, res) => {
         var flag = 1;
 
         db.query(
-          "INSERT INTO users(name, email, password) VALUES($1,$2,$3)",
+          "INSERT INTO users(name, email, password) VALUES($1,$2,$3) RETURNING id",
           [user.name, user.email, user.password],
-          (err) => {
+          (err, results) => {
             if (err) {
               flag = 0;
               return res
@@ -44,10 +44,13 @@ exports.register = async (req, res) => {
             }
 
             if (flag) {
+              console.log(results.rows[0]);
               const token = jwt.sign(
                 //Signing a jwt token
                 {
+                  id: results.rows[0].id,
                   email: user.email,
+                  name: user.name
                 },
                 SECRET_KEY,
                 {

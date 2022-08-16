@@ -15,7 +15,6 @@ export class ShareService {
     this.notes = this.notes.filter((val: any) =>
       val.note.toLowerCase().includes(value)
     );
-    console.log(this.notes);
 
     if(this.term == ''){
       this.notes = this.holdNotes;

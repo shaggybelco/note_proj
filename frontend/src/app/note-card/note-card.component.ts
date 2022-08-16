@@ -22,6 +22,10 @@ export class NoteCardComponent implements OnInit {
   title: any;
   note: any;
 
+  users:any;
+  p: number = 1;
+  total: number = 0;
+
   constructor(
     public getUsersNote: GetUserNotesService,
     private getid: GetIdService,
@@ -39,6 +43,7 @@ export class NoteCardComponent implements OnInit {
     this.getid.getID().subscribe({
       next: (decoded: any) => {
         this.userId = decoded.decoded.id;
+        console.log(this.userId)
         // get the users notes
         this.getUsersNote.getUserNotes(this.userId).subscribe({
           next: (res: any) => {

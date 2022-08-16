@@ -35,6 +35,8 @@ export class NoteComponent implements OnInit {
         this.name = decoded.decoded.name;
         this.userid = decoded.decoded.id;
 
+        console.log(decoded.decoded.id);
+
         this.notes.getUserNotes(this.userid).subscribe({
           next: (res: any) => {
             this.note = res;
